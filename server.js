@@ -26,5 +26,5 @@ app.get("/api/info", (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`الخادم يعمل على http://localhost:${PORT}`);
+  console.log(`الخادم يعمل على https://st-3f8l.onrender.com:${PORT}`);
 });
