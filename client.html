@@ -71,7 +71,7 @@
   <script>
     async function loadData() {
       try {
-        const res = await fetch("http://localhost:3000/api/info");
+        const res = await fetch("https://st-3f8l.onrender.com");
         const data = await res.json();
         document.getElementById("msg").textContent = data.message;
         document.getElementById("date").textContent = data.date;
