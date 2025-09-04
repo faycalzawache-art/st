@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>لوحة التحكم</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --accent: #3b82f6;
+    }
+    body {
+      margin: 0; padding: 0;
+      font-family: "Segoe UI", Tahoma, sans-serif;
+      background: var(--bg); color: var(--text);
+    }
+    header {
+      background: var(--card); padding: 16px;
+      text-align: center; font-size: 20px;
+      border-bottom: 1px solid #334155;
+    }
+    main {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px; padding: 20px;
+    }
+    .card {
+      background: var(--card); padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+    }
+    .title { font-size: 18px; margin-bottom: 10px; }
+    .value { font-size: 14px; color: var(--muted); }
+    button {
+      margin-top: 12px; padding: 10px 14px;
+      border: none; border-radius: 8px;
+      background: var(--accent); color: white;
+      cursor: pointer;
+    }
+    button:hover { opacity: 0.85; }
+  </style>
+</head>
+<body>
+  <header>لوحة تحكم العميل 🌐</header>
+
+  <main>
+    <div class="card">
+      <div class="title">الرسالة</div>
+      <div id="msg" class="value">---</div>
+    </div>
+
+    <div class="card">
+      <div class="title">التاريخ والوقت</div>
+      <div id="date" class="value">---</div>
+    </div>
+
+    <div class="card">
+      <div class="title">المستخدم</div>
+      <div id="user" class="value">---</div>
+    </div>
+
+    <div class="card">
+      <div class="title">إحصائيات</div>
+      <div id="stats" class="value">---</div>
+      <button onclick="loadData()">🔄 تحديث</button>
+    </div>
+  </main>
+
+  <script>
+    async function loadData() {
+      try {
+        const res = await fetch("http://localhost:3000/api/info");
+        const data = await res.json();
+        document.getElementById("msg").textContent = data.message;
+        document.getElementById("date").textContent = data.date;
+        document.getElementById("user").textContent = data.user.name + " (" + data.user.role + ")";
+        document.getElementById("stats").textContent =
+          "عدد الزوار: " + data.stats.visitors + "\nالمدة: " + data.stats.uptime;
+      } catch (e) {
+        alert("فشل الاتصال بالخادم ⚠️");
+      }
+    }
+
+    // تحميل تلقائي عند فتح الصفحة
+    window.onload = loadData;
+  </script>
+</body>
+</html>
