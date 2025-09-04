@@ -1,3 +1,16 @@
-"scripts": {
-  "start": "node server.js"
+{
+  "name": "dashboard-project",
+  "version": "1.0.0",
+  "description": "لوحة تحكم بسيطة بالـ Node.js + Express",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.1",
+    "cors": "^2.8.5"
+  },
+  "engines": {
+    "node": "22.x"
+  }
 }
